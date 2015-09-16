@@ -64,3 +64,6 @@ target/
 
 # Ignore SQLLiteDB
 *.sqlite3
+
+# Ignore bower components
+components/bower_components
