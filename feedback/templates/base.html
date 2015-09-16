@@ -1,0 +1,35 @@
+{% extends 'bootstrap.html' %}
+
+{% load url from future %}
+
+{% block bootstrap3_extra_head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'feedback/style.css' %}" />
+    <link href="{% static 'bootstrap-star-rating/css/star-rating.min.css' %}" media="all" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block bootstrap3_content %}
+     <div class="container">
+        <div class="header">
+            <ul class="nav nav-pills pull-right">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Press</a></li>
+            </ul>
+            <h3 class="text-muted">AWShine Demo App</h3>
+        </div>
+        {% if debug %}<div class="alert alert-danger">Application is in debug mode. This is not safe for production.</div>{% endif %}
+     {% block content %}
+         <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            Something went wrong or there's no content being sent!
+         </div>
+     {% endblock %}
+        <div class="footer">
+            <p>&copy; Amazon Web Services 2015</p>
+        </div>
+    </div> 
+
+{% endblock %}

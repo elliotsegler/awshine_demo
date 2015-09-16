@@ -1,0 +1,76 @@
+{% load static %}
+
+       <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true">
+         <div class="modal-dialog">
+           <div class="modal-content">
+             <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+               <h4 class="modal-title">Provide a few details and we'll be in touch...</h4>
+             </div>
+             <div class="modal-body">
+               <form id="feedbackForm" role="form">
+                 {% csrf_token %}
+                 <div class="form-group">
+                   <label for="{{ form.name.id_for_label }}">Name</label>
+                   {{ form.name }}
+                 </div>
+                 <div class="form-group">
+                   <label for="{{ form.email.id_for_label }}">Email address</label>
+                   {{ form.email }}
+                 </div>
+                 <div class="form-group">
+                   <label for="{{ form.rating.id_for_label }}">Rating</label>
+                   {{ form.rating }}
+                 </div>
+                 <div class="form-group">
+                   <label for="{{ form.feedbackText.id_for_label }}">Feedback</label>
+                   {{ form.feedbackText }}
+                 </div>
+             </div>
+             <div class="modal-footer">
+               <button id="signup" type="button" class="btn btn-primary">Sign Up!</button>
+             </div>
+           </div><!-- /.modal-content -->
+         </div><!-- /.modal-dialog -->
+       </div><!-- /.modal -->
+       <script src="{% static 'jquery/dist/jquery.min.js' %}" type="text/javascript"></script>
+      <script src="{% static 'bootstrap-star-rating/js/star-rating.min.js' %}" type="text/javascript"></script>
+      <script type="text/javascript">
+      jQuery.noConflict();
+      function hideModal() {
+        $("#signupModal").modal('hide');
+      }
+      function fadeMsgs() {
+        setTimeout(function(){
+          $("#signupDuplicate").fadeOut();
+          $("#signupError").fadeOut();
+          $("#signupSuccess").fadeOut();
+        },3000);
+      }
+
+      (function($) {
+        $("#rating").rating();
+        $("#")
+        $("#signup").click(function() {
+          $.post( "/feedback", $("#feedbackForm").serialize(),
+                  function(data) {
+                    $("#signupSuccess").show();
+                  }
+                )
+                .error(function(xhr) {
+                  switch(xhr.status) {
+                    case 409:
+                      $("#signupDuplicate").show();
+
+                      break;
+                    default:
+                      $("#signupError").show();
+                  }
+                })
+                .always(function() {
+                  hideModal();
+                  fadeMsgs();
+                });
+        })
+      })(jQuery);
+      </script>
