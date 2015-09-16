@@ -174,5 +174,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'components')
+STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'static')
+BOWER_COMPONENTS_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'components')
+#BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'components')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
